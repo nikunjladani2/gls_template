@@ -1,0 +1,286 @@
+[
+  {
+    "orderNumber": "JFKB60000680294",
+    "name": "LAWTON",
+    "address": "436 B72ND ST.",
+    "city": "Far Rockaway",
+    "zipcode": "11694",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "4",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "2"
+      },
+      {
+        "type" : "Package",
+        "number" : "2"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "American Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849137",
+    "name": "Arkowitz",
+    "address": "32 West 82nd Street 7B",
+    "city": "New York",
+    "zipcode": "10024",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "5",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "2"
+      },
+      {
+        "type" : "Oversize",
+        "number" : "1"
+      },
+      {
+        "type" : "Overweight",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Alaska Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849121",
+    "name": "Bonelli",
+    "address": "13 Swain Avenue",
+    "city": "Toms River",
+    "zipcode": "8755",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "3",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "2"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Allegiant Air",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849084",
+    "name": "Guerra Farias",
+    "address": "555 West 59th Street 28A",
+    "city": "New York",
+    "zipcode": "10019",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "5",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      },
+      {
+        "type" : "Oversize",
+        "number" : "2"
+      },
+      {
+        "type" : "Overweight",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Delta Air Lines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849076",
+    "name": "Schwartz",
+    "address": "14 Dinev Court unit102",
+    "city": "Monroe",
+    "zipcode": "10950",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "3",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "2"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Frontier Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849059",
+    "name": "Giraldo Ramirez",
+    "address": "332 Ashton Avenue",
+    "city": "Linden",
+    "zipcode": "7036",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "1",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "JetBlue",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849048",
+    "name": "Noble",
+    "address": "4-6 West 37th Street",
+    "city": "New York",
+    "zipcode": "10018",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "2",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Hawaiian Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849040",
+    "name": "Klingler",
+    "address": "135 E 17Th St Apt 6C",
+    "city": "11434",
+    "zipcode": "10003",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "3",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      },
+      {
+        "type" : "Oversize",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Southwest Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849036",
+    "name": "Kay",
+    "address": "300 Mansfield Avenue",
+    "city": "Darien",
+    "zipcode": "6820",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "4",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      },
+      {
+        "type" : "Oversize",
+        "number" : "1"
+      },
+      {
+        "type" : "Overweight",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "United Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  },
+  {
+    "orderNumber": "LGAAA0004849026",
+    "address": "1284 Strongtown Road",
+    "name": "Telle",
+    "city": "Southbury",
+    "zipcode": "6488",
+    "phone": "(718) 844-6622",
+    "email": "management@theuniglobe.com",
+    "notes": "free text by customers",
+    "totalItems": "2",
+    "itemInfo": "(2 Suitcase, 2 Package)",
+    "itemInfoList": [
+      {
+        "type" : "Suitcase",
+        "number" : "1"
+      },
+      {
+        "type" : "Package",
+        "number" : "1"
+      }
+    ],
+    "date": "06/24/2022",
+    "companyName": "Spirit Airlines",
+    "companyCity": "New York",
+    "companyZipcode": "23423"
+  }
+]

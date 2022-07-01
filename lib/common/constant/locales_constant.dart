@@ -1,0 +1,39 @@
+// Drawer Items
+class LocaleKey {
+  static const String localeMessageInternetNotAvailable = "message.internet.not.available";
+  static const String btnLogin = "login.btn.login";
+  static const String loginPassword = "login.password";
+  static const String loginAlertUserName = "login.alert.messageusername";
+  static const String loginAlertPassword = "login.alert.messagepassword";
+  static const String loginUserName = "login.username";
+  static const String alertUploadDataNoInternet = "uploaddata.nointernet";
+  static const String labelOk = "ok";
+  static const String labelCancel = "cancel";
+  static const String currentDeliveries = "current.deliveries";
+  static const String assignedDeliveries = "assigned.deliveries";
+  static const String pickedUp = "picked.up";
+  static const String readyToPickUp = "ready.to.picked.up";
+  static const String order = "order";
+  static const String name = "name";
+  static const String city = "city";
+  static const String totalItems = "total.items";
+  static const String customer = "customer";
+  static const String pickupLocation = "pickup.location";
+  static const String date = "date";
+  static const String type = "type";
+  static const String userInfo = "user.info";
+  static const String address = "address";
+  static const String zipcode = "zipcode";
+  static const String phone = "phone";
+  static const String email = "email";
+  static const String notes = "notes";
+  static const String accept = "accept";
+  static const String reject = "reject";
+  static const String rejected = "rejected";
+  static const localeTitleSuccess = "title.success";
+  static const localeTitleFail = "title.fail";
+  static const assign = "assign";
+  static const delivered = "delivered";
+  static const proceed = "proceed";
+  static const outForDelivery = "out.for.delivery";
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "name": "dev",
+    "baseUrl": "http://www.devglsstore.com/api/",
+    "logLevel": "DEBUG",
+    "applyMock": true,
+    "mockMappingsFile": "assets/mocks/_mappings.json",
+    "params": {
+      "appName": "Dev - UGA",
+      "package": "com.uga",
+      "environment": "dev"
+    }
+  },
+  {
+    "name": "stage",
+    "baseUrl": "https://www.gotoliquorshop.com/api/",
+    "logLevel": "INFO",
+    "applyMock": false,
+    "params": {
+      "appName": "Stage - UGA",
+      "package": "com.uga",
+      "environment": "stage"
+    }
+  },
+  {
+    "name": "prod",
+    "baseUrl": "https://www.gotoliquorstore.com/api/",
+    "logLevel": "ERROR",
+    "applyMock": false,
+    "params": {
+      "appName": "UGA",
+      "package": "com.uga",
+      "environment": "prod"
+    }
+  }
+]
