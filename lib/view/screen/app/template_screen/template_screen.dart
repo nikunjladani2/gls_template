@@ -52,38 +52,101 @@ class _TemplateBodyState extends State<_TemplateBody> {
   List<CategoryVO> category = [];
   GlobalKey _globalKey = GlobalKey();
 
+  double IMAGE_SIZE = 1080;
+  double HEADER_HEIGHT = 180;
+  double PRODUCT_CELL_HEIGHT = 0;
+  double TOP_DEVIDER_HEIGHT = 5;
+  double CELL_DEVIDER_HEIGHT = 1;
+
   @override
   void initState() {
     super.initState();
     List<ItemVO> taquilaItemList = [];
-    taquilaItemList.add(ItemVO(name: "Don Julio 1942", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
-    taquilaItemList
-        .add(ItemVO(name: "Clazse Azul Reposado ", isProductAdded: false, price: "\$149.99", quantity: "650ml"));
-    taquilaItemList.add(ItemVO(name: "Cincoro Anejo", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
-    taquilaItemList.add(ItemVO(name: "Tesoro Maya Anejo", isProductAdded: false, price: "\$169.99", quantity: "650ml"));
-    taquilaItemList.add(ItemVO(name: "Don Julio Anejo", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
+    taquilaItemList.add(ItemVO(
+        name: "Don Julio 1942",
+        isProductAdded: false,
+        price: "\$139.99",
+        quantity: "750ml"));
+    taquilaItemList.add(ItemVO(
+        name: "Clazse Azul Reposado ",
+        isProductAdded: false,
+        price: "\$149.99",
+        quantity: "650ml"));
+    taquilaItemList.add(ItemVO(
+        name: "Cincoro Anejo",
+        isProductAdded: false,
+        price: "\$159.99",
+        quantity: "750ml"));
+    taquilaItemList.add(ItemVO(
+        name: "Tesoro Maya Anejo",
+        isProductAdded: false,
+        price: "\$169.99",
+        quantity: "650ml"));
+    taquilaItemList.add(ItemVO(
+        name: "Don Julio Anejo",
+        isProductAdded: false,
+        price: "\$139.99",
+        quantity: "750ml"));
 
     List<ItemVO> bourbonItemList = [];
-    bourbonItemList.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
-    bourbonItemList
-        .add(ItemVO(name: "Basil Hayden's Toast", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
-    bourbonItemList
-        .add(ItemVO(name: "Larceny Small Batch", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
-    bourbonItemList.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
+    bourbonItemList.add(ItemVO(
+        name: "Jim Beam",
+        isProductAdded: false,
+        price: "\$129.99",
+        quantity: "1.75ml"));
+    bourbonItemList.add(ItemVO(
+        name: "Basil Hayden's Toast",
+        isProductAdded: false,
+        price: "\$139.99",
+        quantity: "750ml"));
+    bourbonItemList.add(ItemVO(
+        name: "Larceny Small Batch",
+        isProductAdded: false,
+        price: "\$149.99",
+        quantity: "1.75ml"));
+    bourbonItemList.add(ItemVO(
+        name: "Maker's Mark",
+        isProductAdded: false,
+        price: "\$169.99",
+        quantity: "750ml"));
     List<ItemVO> scotchItemList = [];
-    scotchItemList
-        .add(ItemVO(name: "Johnnie Walker Red Label", isProductAdded: false, price: "\$129.99", quantity: "750ml"));
-    scotchItemList
-        .add(ItemVO(name: "Glenfiddich 12 Year Old", isProductAdded: false, price: "\$99.99", quantity: "1.75ml"));
-    scotchItemList.add(ItemVO(name: "Buchanan's Deluxe", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
-    scotchItemList
-        .add(ItemVO(name: "Doublewood 12 Year Old", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
-    scotchItemList.add(ItemVO(name: "Oban 14 Year Old", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
+    scotchItemList.add(ItemVO(
+        name: "Johnnie Walker Red Label",
+        isProductAdded: false,
+        price: "\$129.99",
+        quantity: "750ml"));
+    scotchItemList.add(ItemVO(
+        name: "Glenfiddich 12 Year Old",
+        isProductAdded: false,
+        price: "\$99.99",
+        quantity: "1.75ml"));
+    scotchItemList.add(ItemVO(
+        name: "Buchanan's Deluxe",
+        isProductAdded: false,
+        price: "\$139.99",
+        quantity: "750ml"));
+    scotchItemList.add(ItemVO(
+        name: "Doublewood 12 Year Old",
+        isProductAdded: false,
+        price: "\$149.99",
+        quantity: "1.75ml"));
+    scotchItemList.add(ItemVO(
+        name: "Oban 14 Year Old",
+        isProductAdded: false,
+        price: "\$159.99",
+        quantity: "750ml"));
     category = [
       CategoryVO(categoryName: "TEQUILA", itemList: taquilaItemList),
       CategoryVO(categoryName: "BOURBON", itemList: bourbonItemList),
       CategoryVO(categoryName: "SCOTCH", itemList: scotchItemList)
     ];
+
+    PRODUCT_CELL_HEIGHT = (IMAGE_SIZE -
+            HEADER_HEIGHT -
+            TOP_DEVIDER_HEIGHT -
+            ((category.length) * CELL_DEVIDER_HEIGHT)) /
+        category.length;
+    TGLog.d("PRODUCT_CELL_HEIGHT " + PRODUCT_CELL_HEIGHT.toString());
     initHeader();
   }
 
@@ -105,35 +168,49 @@ class _TemplateBodyState extends State<_TemplateBody> {
 
   Widget _bodyView() {
     return SingleChildScrollView(
-      child: TGView.columnContainer(children: [_templateContainer(), exportButtonContainer()]),
+      scrollDirection: Axis.vertical,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: TGView.columnContainer(
+            children: [_templateContainer(), exportButtonContainer()]),
+      ),
     );
   }
 
   Widget _templateContainer() {
     return RepaintBoundary(
       key: _globalKey,
-      child: TGView.columnContainer(color: Colors.black12, crossAxisAlignment: CrossAxisAlignment.start, children: [
-        _headerViewContainer(),
-        divider(Colors.black),
-        Column(
-          children: category
-              .map((item) => _categoryContainer(
-                    item,
-                  ))
-              .toList(),
-        )
-      ]),
+      child: SizedBox(
+        height: IMAGE_SIZE,
+        width: IMAGE_SIZE,
+        child: TGView.columnContainer(
+            color: Colors.black12,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _headerViewContainer(),
+              divider(Colors.black),
+              Column(
+                children: category
+                    .map((item) => _categoryContainer(
+                          item,
+                        ))
+                    .toList(),
+              )
+            ]),
+      ),
     );
   }
 
   Future<void> capturePng() async {
-    RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    RenderRepaintBoundary boundary =
+        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     ui.Image image = await boundary.toImage();
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     Uint8List pngBytes = byteData!.buffer.asUint8List();
     print(pngBytes);
-    Directory? dir =
-        Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    Directory? dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
     final File file = File('${dir!.path}/file.png');
     await file.writeAsBytes(pngBytes);
 
@@ -144,8 +221,10 @@ class _TemplateBodyState extends State<_TemplateBody> {
     final result = await ImageGallerySaver.saveImage(pngBytes);
     print(result);
   }
+
   Future getPdf() async {
-    RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    RenderRepaintBoundary boundary =
+        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     ui.Image image = await boundary.toImage();
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     Uint8List pngBytes = byteData!.buffer.asUint8List();
@@ -155,12 +234,15 @@ class _TemplateBodyState extends State<_TemplateBody> {
       pw.Page(
         pageFormat: PdfPageFormat.a4,
         build: (context) {
-          return pw.Expanded(child: pw.Image(pw.MemoryImage(pngBytes), fit: pw.BoxFit.contain));
+          return pw.Expanded(
+              child:
+                  pw.Image(pw.MemoryImage(pngBytes), fit: pw.BoxFit.contain));
         },
       ),
     );
-    Directory? dir =
-    Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    Directory? dir = Platform.isAndroid
+        ? await getExternalStorageDirectory()
+        : await getApplicationDocumentsDirectory();
     final File pdfFile = File('${dir!.path}/template.pdf');
     pdfFile.writeAsBytesSync(await pdf.save());
   }
@@ -173,10 +255,17 @@ class _TemplateBodyState extends State<_TemplateBody> {
             RotatedBox(
                 quarterTurns: 3,
                 child: Container(
-                    padding: const EdgeInsets.all(10),
                     color: Colors.blue,
-                    width: 120,
-                    child: (textLabel(text: categoryVO.categoryName)))),
+                    width: PRODUCT_CELL_HEIGHT,
+                    height: 80,
+                    child: Center(
+                      child: (textLabel(
+                        text: categoryVO.categoryName,
+                        color: whiteColor,
+                        size: fontSize20,
+                        fontWeight: FontWeight.bold,
+                      )),
+                    ))),
             Expanded(
               child: Row(
                   children: categoryVO.itemList
@@ -187,14 +276,18 @@ class _TemplateBodyState extends State<_TemplateBody> {
                               child: InkWell(
                                 child: Container(
                                   color: whiteColor,
-                                  height: 120,
+                                  height: PRODUCT_CELL_HEIGHT,
                                   alignment: Alignment.center,
                                   child: Column(
                                     children: [
                                       if (!item.isProductAdded) ...[
-                                        Expanded(child: const Icon(Icons.camera_alt, size: 50))
+                                        const Expanded(
+                                            child: Icon(Icons.camera_alt,
+                                                size: 50))
                                       ],
-                                      if (item.isProductAdded) ...[_categoryItemContainer(item)]
+                                      if (item.isProductAdded) ...[
+                                        _categoryItemContainer(item)
+                                      ]
                                     ],
                                   ),
                                 ),
@@ -210,39 +303,42 @@ class _TemplateBodyState extends State<_TemplateBody> {
             ),
           ],
         ),
-        TGView.emptySizedBox(height: 1)
+        TGView.emptySizedBox(height: CELL_DEVIDER_HEIGHT)
       ],
     );
   }
 
   Widget exportButtonContainer() {
-    return TGView.rowContainer(
-      left: [
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: button(() {
-            capturePng();
-          }, text: "Export as PNG"),
-        )
-      ],
-      center: [TGView.emptySizedBox(width: 10)],
-      right: [
-        Container(
+    return SizedBox(
+      width: 1080,
+      child: TGView.rowContainer(
+        left: [
+          Container(
             padding: const EdgeInsets.all(20),
             child: button(() {
-              // performLogout(context);
-              getPdf();
-            }, text: "Export as PDF"))
-      ],
+              capturePng();
+            }, text: "Export as PNG"),
+          )
+        ],
+        center: [TGView.emptySizedBox(width: 10)],
+        right: [
+          Container(
+              padding: const EdgeInsets.all(20),
+              child: button(() {
+                // performLogout(context);
+                getPdf();
+              }, text: "Export as PDF"))
+        ],
+      ),
     );
   }
 
   Widget divider(Color color) {
     return SizedBox(
-      height: 5.0,
+      height: TOP_DEVIDER_HEIGHT,
       child: Center(
         child: Container(
-          height: 5.0,
+          height: TOP_DEVIDER_HEIGHT,
           color: color,
         ),
       ),
@@ -253,13 +349,14 @@ class _TemplateBodyState extends State<_TemplateBody> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       color: _headerVO!.backgroundColor,
+      height: HEADER_HEIGHT,
       child: IntrinsicHeight(
         child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-          _logoNameContainer(),
+          SizedBox(width: 250, child: _logoNameContainer()),
           TGView.emptySizedBox(width: 10),
           Expanded(child: _bannerImageContainer()),
           TGView.emptySizedBox(width: 10),
-          _addressContainer()
+          SizedBox(width: 250, child: _addressContainer())
         ]),
       ),
     );
@@ -271,20 +368,31 @@ class _TemplateBodyState extends State<_TemplateBody> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Image.file(File(_headerVO!.logoUrl!), height: 50, width: 50, fit: BoxFit.cover),
+              Image.file(File(_headerVO!.logoUrl!),
+                  height: 80, width: 80, fit: BoxFit.cover),
               TGView.emptySizedBox(width: 5),
-              textLabel(
-                  text: _headerVO!.storeName!,
-                  color: _headerVO!.textColor!,
-                  size: fontSize15,
-                  fontWeight: FontWeight.bold,
-                  maxLines: 2)
+              Expanded(
+                child: textLabel(
+                    text: _headerVO!.storeName!,
+                    color: _headerVO!.textColor!,
+                    size: fontSize22,
+                    fontWeight: FontWeight.bold,
+                    maxLines: 2,
+                    textAlign: TextAlign.start),
+              )
             ],
           ),
           TGView.emptySizedBox(height: 5),
-          textLabel(text: _headerVO!.website!, color: _headerVO!.textColor!, size: fontSize13),
-          textLabel(text: "Offer Expires ${_headerVO!.expiryDate!}", color: _headerVO!.textColor!, size: fontSize12),
+          textLabel(
+              text: _headerVO!.website!,
+              color: _headerVO!.textColor!,
+              size: fontSize15),
+          textLabel(
+              text: "Offer Expires ${_headerVO!.expiryDate!}",
+              color: _headerVO!.textColor!,
+              size: fontSize15),
         ]);
   }
 
@@ -296,12 +404,26 @@ class _TemplateBodyState extends State<_TemplateBody> {
   }
 
   Widget _addressContainer() {
-    return TGView.columnContainer(mainAxisAlignment: MainAxisAlignment.center, children: [
-      textLabel(text: _headerVO!.storeAddress!, color: _headerVO!.textColor!, size: fontSize15),
-      textLabel(text: "${_headerVO!.city!}, ${_headerVO!.zipcode!}", color: _headerVO!.textColor!, size: fontSize15),
-      TGView.emptySizedBox(height: 5),
-      textLabel(text: _headerVO!.phoneNo!, color: _headerVO!.textColor!, size: fontSize18),
-    ]);
+    return TGView.columnContainer(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          textLabel(
+              text: _headerVO!.storeAddress!,
+              color: _headerVO!.textColor!,
+              fontWeight: FontWeight.bold,
+              size: fontSize20),
+          textLabel(
+              text: "${_headerVO!.city!}, ${_headerVO!.zipcode!}",
+              color: _headerVO!.textColor!,
+              fontWeight: FontWeight.bold,
+              size: fontSize20),
+          TGView.emptySizedBox(height: 5),
+          textLabel(
+              text: _headerVO!.phoneNo!,
+              color: _headerVO!.textColor!,
+              fontWeight: FontWeight.bold,
+              size: fontSize25),
+        ]);
   }
 
   Widget _categoryItemContainer(ItemVO itemVO) {
@@ -313,28 +435,44 @@ class _TemplateBodyState extends State<_TemplateBody> {
             padding: const EdgeInsets.all(5.0),
             child: Container(
               color: Colors.transparent,
-              child: Image(width: 30, height: 110, image: const AssetImage('assets/images/bottle.png')),
+              child: const Image(
+                  width: 30,
+                  height: 110,
+                  image: AssetImage('assets/images/bottle.png')),
             ),
           ),
         ),
         Expanded(
           flex: 5,
-          child: TGView.columnContainer(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                  height: 30,
-                  child: textLabel(text: itemVO.name, maxLines: 2, size: fontSize10, fontWeight: FontWeight.bold)),
-            ),
-            TGView.emptySizedBox(height: 18),
-            textLabel(text: itemVO.quantity, size: fontSize9, fontWeight: FontWeight.bold),
-            TGView.emptySizedBox(height: 5),
-            Container(
-              padding: const EdgeInsets.all(5),
-              color: Colors.red,
-              child: textLabel(text: itemVO.price, size: fontSize14, fontWeight: FontWeight.bold, color: whiteColor),
-            )
-          ]),
+          child: TGView.columnContainer(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                      height: 30,
+                      child: textLabel(
+                          text: itemVO.name,
+                          maxLines: 2,
+                          size: fontSize10,
+                          fontWeight: FontWeight.bold)),
+                ),
+                TGView.emptySizedBox(height: 18),
+                textLabel(
+                    text: itemVO.quantity,
+                    size: fontSize9,
+                    fontWeight: FontWeight.bold),
+                TGView.emptySizedBox(height: 5),
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  color: Colors.red,
+                  child: textLabel(
+                      text: itemVO.price,
+                      size: fontSize14,
+                      fontWeight: FontWeight.bold,
+                      color: whiteColor),
+                )
+              ]),
         )
       ],
     );

@@ -4,7 +4,6 @@ class ScreenRoute {
   static const String login = "/login_screen";
   static const String header = "/header_screen";
   static const String addProduct = "/add_product_screen";
-
 }
 
 //Font size
@@ -27,4 +26,5 @@ const double fontSize18 = 18.0;
 const double fontSize19 = 19.0;
 const double fontSize20 = 20.0;
 const double fontSize22 = 22.0;
+const double fontSize25 = 25.0;
 const double fontSize30 = 30.0;
