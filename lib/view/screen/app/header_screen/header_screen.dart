@@ -52,8 +52,8 @@ class _HeaderState extends State<_HeaderBody> {
   final FocusNode _websiteFocusNode = FocusNode();
 
   // create some values
-  Color pickerColor = Color(0xff443a49);
-  Color currentColor = Color(0xff443a49);
+  Color pickerColor = const Color(0xff443a49);
+  Color currentColor = const Color(0xff443a49);
 
   bool _isStoreNameFieldHasFocus = false;
   bool _isAddressFieldHasFocus = false;
@@ -61,6 +61,7 @@ class _HeaderState extends State<_HeaderBody> {
   bool _isZipcodeFieldHasFocus = false;
   bool _isPhoneNoFieldHasFocus = false;
   bool _isWebsiteFieldHasFocus = false;
+
   final _picker = ImagePicker();
   String _logoUrl = "";
   String _bannerUrl = "";
@@ -86,6 +87,16 @@ class _HeaderState extends State<_HeaderBody> {
   bool _isShowLogoError = false;
   bool _isShowBannerError = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _isShowStoreNameError = false;
+  bool _isShowAddressError = false;
+  bool _isShowCityError = false;
+  bool _isShowZipcodeError = false;
+  bool _isShowPhoneNoError = false;
+  bool _isShowWebsiteError = false;
+  bool _isShowDateError = false;
+  bool _isShowBGColorError = false;
+  bool _isShowTextColorError = false;
 
   @override
   void initState() {
@@ -132,31 +143,43 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _storeNameFieldWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsStoreNameFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _storeNameController,
-          focusNode: _storeNameFocusNode,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: (String value) {
-            _addressFocusNode.requestFocus();
-          },
-          onChanged: (value) {
-            _storeName = value;
-          },
-          decoration: textFieldDecoration(
-            text: "Store Name",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              // _updateIsStoreNameFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _storeNameController,
+              focusNode: _storeNameFocusNode,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {
+                _addressFocusNode.requestFocus();
+              },
+              onChanged: (value) {
+                _storeName = value;
+                _updateIsShowStoreNameError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "Store Name",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validateStoreName,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowStoreNameError)
+                  ? "Store Name required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -164,32 +187,44 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _storeAddressLineWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsAddressFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _addressController,
-          focusNode: _addressFocusNode,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: (String value) {
-            _cityFocusNode.requestFocus();
-            _storeAddress = value;
-          },
-          onChanged: (value) {
-            _storeAddress = value;
-          },
-          decoration: textFieldDecoration(
-            text: "Address line 1",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              _updateIsAddressFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _addressController,
+              focusNode: _addressFocusNode,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {
+                _cityFocusNode.requestFocus();
+                _storeAddress = value;
+              },
+              onChanged: (value) {
+                _storeAddress = value;
+                _updateIsShowAddressError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "Address line 1",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validateAddress,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowAddressError)
+                  ? "Address required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -197,32 +232,43 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _storeCityWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsCityFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _cityController,
-          focusNode: _cityFocusNode,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: (String value) {
-            _zipcodeFocusNode.requestFocus();
-            _storeCity = value;
-          },
-          onChanged: (value) {
-            _storeCity = value;
-          },
-          decoration: textFieldDecoration(
-            text: "City",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              _updateIsCityFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _cityController,
+              focusNode: _cityFocusNode,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {
+                _zipcodeFocusNode.requestFocus();
+                _storeCity = value;
+              },
+              onChanged: (value) {
+                _storeCity = value;
+                _updateIsShowCityError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "City",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validateCity,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text:
+                  (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowCityError) ? "City required" : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -230,32 +276,44 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _storeZipCodeWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsZipcodeFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _zipcodeController,
-          focusNode: _zipcodeFocusNode,
-          keyboardType: TextInputType.number,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: (String value) {
-            _phoneNoFocusNode.requestFocus();
-            _storeZipCode = value;
-          },
-          onChanged: (value) {
-            _storeZipCode = value;
-          },
-          decoration: textFieldDecoration(
-            text: "Zipcode",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              _updateIsZipcodeFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _zipcodeController,
+              focusNode: _zipcodeFocusNode,
+              keyboardType: TextInputType.number,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {
+                _phoneNoFocusNode.requestFocus();
+                _storeZipCode = value;
+              },
+              onChanged: (value) {
+                _storeZipCode = value;
+                _updateIsShowZipcodeError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "Zipcode",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validateZipcode,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowZipcodeError)
+                  ? "Zipcode required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -263,32 +321,44 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _shopPhoneNoWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsPhoneNoFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _phoneNoController,
-          focusNode: _phoneNoFocusNode,
-          keyboardType: TextInputType.phone,
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: (String value) {
-            _websiteFocusNode.requestFocus();
-            _storePhoneNo = value;
-          },
-          onChanged: (value) {
-            _storePhoneNo = value;
-          },
-          decoration: textFieldDecoration(
-            text: "Phone No.",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              _updateIsPhoneNoFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _phoneNoController,
+              focusNode: _phoneNoFocusNode,
+              keyboardType: TextInputType.phone,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {
+                _websiteFocusNode.requestFocus();
+                _storePhoneNo = value;
+              },
+              onChanged: (value) {
+                _storePhoneNo = value;
+                _updateIsShowPhoneNoError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "Phone No.",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validatePhoneNo,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowPhoneNoError)
+                  ? "Phone number is required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -296,32 +366,43 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _shopWebsiteWidget() {
     return Container(
       color: Colors.transparent,
-      child: Focus(
-        onFocusChange: (hasFocus) {
-          _updateIsWebsiteFieldHasFocus(hasFocus);
-        },
-        child: TextFormField(
-          enabled: true,
-          enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          autovalidateMode: _autoValidateMode,
-          controller: _websiteController,
-          focusNode: _websiteFocusNode,
-          keyboardType: TextInputType.text,
-          textInputAction: TextInputAction.done,
-          onFieldSubmitted: (String value) {
-            _storeWebsite = value;
-            // _passwordFocusNode.requestFocus();
-          },
-          onChanged: (value) {
-            _storeWebsite = value;
-          },
-          decoration: textFieldDecoration(
-            text: "Website",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              _updateIsWebsiteFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _websiteController,
+              focusNode: _websiteFocusNode,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.done,
+              onFieldSubmitted: (String value) {
+                _storeWebsite = value;
+              },
+              onChanged: (value) {
+                _storeWebsite = value;
+                _updateShowWebsiteError(value.trim().isNotEmpty ? false : true);
+              },
+              decoration: textFieldDecoration(
+                text: "Website",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          validator: _validateWebsite,
-        ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowWebsiteError)
+                  ? "Website required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -329,20 +410,41 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _expiryDateWidget() {
     return Container(
       color: Colors.transparent,
-      child: TextFormField(
-        enabled: true,
-        focusNode: AlwaysDisabledFocusNode(),
-        enableInteractiveSelection: true,
-        controller: _expiryDateController,
-        style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-        decoration: textFieldDecoration(
-          text: "Expiry Date",
-          textColor: primaryColor,
-        ),
-        onTap: () {
-          _selectDate(context);
-        },
-        validator: _validateExpiryDate,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              //      _updateIsWebsiteFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              readOnly: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _expiryDateController,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {},
+              onChanged: (value) {},
+              onTap: () {
+                _selectDate(context);
+              },
+              decoration: textFieldDecoration(
+                text: "Expiry Date",
+                textColor: primaryColor,
+              ),
+            ),
+          ),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowDateError)
+                  ? "Expiry Date required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
       ),
     );
   }
@@ -350,38 +452,84 @@ class _HeaderState extends State<_HeaderBody> {
   Widget _chooseBackgroundColorWidget() {
     return Container(
       color: Colors.transparent,
-      child: TextFormField(
-          enabled: true,
-          focusNode: AlwaysDisabledFocusNode(),
-          enableInteractiveSelection: true,
-          controller: _backgroundColorController,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          decoration: textFieldDecoration(
-            text: "Background Colour",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              //  _updateIsWebsiteFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              readOnly: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _backgroundColorController,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {},
+              onChanged: (value) {},
+              onTap: () {
+                selectColor(ColorSelectionType.background);
+              },
+              decoration: textFieldDecoration(
+                text: "Background Color",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          onTap: () {
-            selectColor(ColorSelectionType.background);
-          }),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowBGColorError)
+                  ? "Background Color required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
+      ),
     );
   }
 
   Widget _chooseTextColorWidget() {
     return Container(
       color: Colors.transparent,
-      child: TextFormField(
-          enabled: true,
-          focusNode: AlwaysDisabledFocusNode(),
-          enableInteractiveSelection: true,
-          controller: _textColorController,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
-          decoration: textFieldDecoration(
-            text: "Text Colour",
-            textColor: primaryColor,
+      child: TGView.columnContainer(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Focus(
+            onFocusChange: (hasFocus) {
+              //  _updateIsWebsiteFieldHasFocus(hasFocus);
+            },
+            child: TextFormField(
+              enabled: true,
+              readOnly: true,
+              enableInteractiveSelection: true,
+              style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+              autovalidateMode: _autoValidateMode,
+              controller: _textColorController,
+              keyboardType: TextInputType.text,
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: (String value) {},
+              onChanged: (value) {},
+              onTap: () {
+                selectColor(ColorSelectionType.text);
+              },
+              decoration: textFieldDecoration(
+                text: "Text Color",
+                textColor: primaryColor,
+              ),
+            ),
           ),
-          onTap: () {
-            selectColor(ColorSelectionType.text);
-          }),
+          TGView.emptySizedBox(height: Spacing.smallSpacing),
+          textLabel(
+              text: (_autoValidateMode == AutovalidateMode.onUserInteraction && _isShowTextColorError)
+                  ? "Text Color required"
+                  : "",
+              size: fontSize13,
+              color: redColor),
+        ],
+      ),
     );
   }
 
@@ -413,7 +561,7 @@ class _HeaderState extends State<_HeaderBody> {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
-                      child: Icon(Icons.camera_alt_rounded, size: 40),
+                      child: const Icon(Icons.camera_alt_rounded, size: 40),
                     ),
               Container(
                   child: textLabel(
@@ -449,7 +597,7 @@ class _HeaderState extends State<_HeaderBody> {
                       height: 120,
                       width: 300,
                       decoration: BoxDecoration(border: Border.all(color: Colors.black38)),
-                      child: Icon(Icons.camera_alt_rounded, size: 40),
+                      child: const Icon(Icons.camera_alt_rounded, size: 40),
                     ),
               Container(
                   child: textLabel(
@@ -471,7 +619,7 @@ class _HeaderState extends State<_HeaderBody> {
               // CropAspectRatioPreset.ratio4x3,
               // CropAspectRatioPreset.ratio16x9
             ],
-            androidUiSettings: AndroidUiSettings(
+            androidUiSettings: const AndroidUiSettings(
                 toolbarTitle: 'Cropper',
                 toolbarColor: ThemeColors.primary,
                 toolbarWidgetColor: Colors.white,
@@ -479,7 +627,7 @@ class _HeaderState extends State<_HeaderBody> {
                 activeControlsWidgetColor: ThemeColors.primary,
                 hideBottomControls: true,
                 lockAspectRatio: false),
-            iosUiSettings: IOSUiSettings(
+            iosUiSettings: const IOSUiSettings(
                 minimumAspectRatio: 1.0,
                 aspectRatioLockEnabled: true,
                 rectX: 0,
@@ -572,7 +720,7 @@ class _HeaderState extends State<_HeaderBody> {
         builder: (BuildContext context, Widget? child) {
           return Theme(
             data: ThemeData.light().copyWith(
-              colorScheme: ColorScheme.dark(
+              colorScheme: const ColorScheme.dark(
                 primary: blackColor,
                 onPrimary: whiteColor,
                 surface: primaryColor,
@@ -590,12 +738,13 @@ class _HeaderState extends State<_HeaderBody> {
         ..text = DateFormat.yMMMd().format(_selectedDate!)
         ..selection = TextSelection.fromPosition(
             TextPosition(offset: _expiryDateController.text.length, affinity: TextAffinity.upstream));
+      _updateShowDateError(false);
     }
   }
 
   Widget nextButtonContainer() {
     return Container(
-        padding: EdgeInsets.symmetric(vertical: 20),
+        padding: const EdgeInsets.symmetric(vertical: 20),
         child: elevatedButton("Next", () {
           // performLogout(context);
           _saveHeaderDetailButtonPressed();
@@ -609,6 +758,7 @@ class _HeaderState extends State<_HeaderBody> {
         _formKey.currentState!.save();
         TGView.clearFocus(context);
         if (_isValid()) {
+          _autoValidateMode = AutovalidateMode.disabled;
           HeaderVO headerVO = HeaderVO();
           headerVO.storeName = _storeName;
           headerVO.storeAddress = _storeAddress;
@@ -631,6 +781,48 @@ class _HeaderState extends State<_HeaderBody> {
   }
 
   bool _isValid() {
+    if (_storeNameController.text.trim().isEmpty) {
+      _updateIsShowStoreNameError(true);
+      return false;
+    }
+    if (_addressController.text.trim().isEmpty) {
+      _updateIsShowAddressError(true);
+      return false;
+    }
+    if (_cityController.text.trim().isEmpty) {
+      _updateIsShowCityError(true);
+      return false;
+    }
+
+    if (_zipcodeController.text.trim().isEmpty) {
+      _updateIsShowZipcodeError(true);
+      return false;
+    }
+
+    if (_phoneNoController.text.trim().isEmpty) {
+      _updateIsShowPhoneNoError(true);
+      return false;
+    }
+    if (_websiteController.text.trim().isEmpty) {
+      _updateShowWebsiteError(true);
+      return false;
+    }
+
+    if (_expiryDateController.text.trim().isEmpty) {
+      _updateShowDateError(true);
+      return false;
+    }
+
+    if (_backgroundColorController.text.trim().isEmpty) {
+      _updateShowBGColorError(true);
+      return false;
+    }
+
+    if (_textColorController.text.trim().isEmpty) {
+      _updateShowTextColorError(true);
+      return false;
+    }
+
     if (_logoUrl.isEmpty) {
       _updateShowLogoError(true);
       return false;
@@ -642,11 +834,57 @@ class _HeaderState extends State<_HeaderBody> {
     return true;
   }
 
-  void _updateShowLogoError(bool isShow) {
+  void _updateIsShowStoreNameError(bool isShow) {
     setState(() {
-      setState(() {
-        _isShowLogoError = isShow;
-      });
+      _isShowStoreNameError = isShow;
+    });
+  }
+
+  void _updateIsShowAddressError(bool isShow) {
+    setState(() {
+      _isShowAddressError = isShow;
+    });
+  }
+
+  void _updateIsShowCityError(bool isShow) {
+    setState(() {
+      _isShowCityError = isShow;
+    });
+  }
+
+  void _updateIsShowZipcodeError(bool isShow) {
+    setState(() {
+      _isShowZipcodeError = isShow;
+    });
+  }
+
+  void _updateIsShowPhoneNoError(bool isShow) {
+    setState(() {
+      _isShowPhoneNoError = isShow;
+    });
+  }
+
+  void _updateShowWebsiteError(bool isShow) {
+    setState(() {
+      _isShowWebsiteError = isShow;
+    });
+  }
+
+  void _updateShowDateError(bool isShow) {
+    setState(() {
+      _isShowDateError = isShow;
+    });
+  }
+
+  void _updateShowBGColorError(bool isShow) {
+    setState(() {
+      _isShowBGColorError = isShow;
+    });
+  }
+
+  void _updateShowTextColorError(bool isShow) {
+    setState(() {
+      _isShowTextColorError = isShow;
     });
   }
 
@@ -654,6 +892,14 @@ class _HeaderState extends State<_HeaderBody> {
     setState(() {
       setState(() {
         _isShowBannerError = isShow;
+      });
+    });
+  }
+
+  void _updateShowLogoError(bool isShow) {
+    setState(() {
+      setState(() {
+        _isShowLogoError = isShow;
       });
     });
   }
@@ -743,6 +989,20 @@ class _HeaderState extends State<_HeaderBody> {
     return null;
   }
 
+  String? _validateBackgroundColor(String? expiryDate) {
+    if (expiryDate == null || expiryDate.isEmpty) {
+      return "Please select backgroundColor";
+    }
+    return null;
+  }
+
+  String? _validateTextColor(String? expiryDate) {
+    if (expiryDate == null || expiryDate.isEmpty) {
+      return "Please select text color";
+    }
+    return null;
+  }
+
   void selectColor(String colorSelectionType) {
     showDialog(
         context: context,
@@ -766,6 +1026,9 @@ class _HeaderState extends State<_HeaderBody> {
                         ? _backgroundColor = pickerColor
                         : _textColor = pickerColor;
                   });
+                  colorSelectionType == ColorSelectionType.background
+                      ? _updateShowBGColorError(false)
+                      : _updateShowTextColorError(false);
                   Navigator.of(context).pop();
                 },
               ),

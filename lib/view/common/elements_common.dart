@@ -8,7 +8,7 @@ import 'package:techgrains/com/techgrains/view/tg_view.dart';
 
 InputDecoration textFieldDecoration({ String? text ,Color textColor = primaryColor,}) {
   return InputDecoration(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+      contentPadding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
       labelStyle: textLabelRegularStyle(fontSize14, primaryColor, fontWeight: FontWeightSize.medium),
       labelText: text,
 

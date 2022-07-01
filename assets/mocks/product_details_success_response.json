@@ -1,0 +1,123 @@
+{
+  "product": {
+    "name": "Grand Marnier Cordon Rouge Liqueur",
+    "systemCategory": "Citrus & Triple Sec Liqueur",
+    "unitPackageType": "Bottle",
+    "packageSize": "750ml Bottle",
+    "seName": "grand-marnier-cordon-rouge-liqueur",
+    "category": "Spirits",
+    "subCategory": "Liqueur",
+    "company": "Campari Group",
+    "type": "Citrus & Triple Sec Liqueur",
+    "flavor": "Orange",
+    "brand": "Grand Marnier",
+    "originCountry": "France",
+    "alcoholPercentage": "40",
+    "year": 0,
+    "shortDescription": "<p>Created in 1880 by founder Louis-Alexandre Marnier Lapostolle, Grand Marnier Cordon Rouge Orange Liqueur is a premium blend of cognacs with wild tropical oranges from the Caribbean. Louis-Alexandre&#39;s vision of blending the essence of wild tropical oranges with cognac from France was unconventional and indeed the earliest form of spirits innovation of its time. Grand Marnier Cordon Rouge contains 51% cognac and 49% orange liqueur.</p><p>It has brilliant topaz tones with amber hues. It offers pleasant orange notes on the nose with hints of candied peel, light aroma of vanilla fragrance from the cognac. It has fragrant orange flavors enhanced by the cognac with nuances of orange essence and hazelnuts. It gives a lingering and harmonious finish. It is a versatile spirit that is best to enjoy on the rocks or neat, yet exceptionally delicious in cocktails. Enjoy!</p>",
+    "price": 0,
+    "displayPrice": "0.00",
+    "mediaThumbUrl": "https://images.gotoliquorstore.com/product/1000002491/d22d084d-aead-414b-9c21-a39814386c33_360.jpg",
+    "isAlreadyMapped": 0,
+    "url": "http://www.devglsstore.com/p/grand-marnier-cordon-rouge-liqueur/2492",
+    "shareSubject": "Checkout Grand Marnier Cordon Rouge Liqueur on GotoLiquorStore",
+    "shareContent": "I want to recommend Grand Marnier Cordon Rouge Liqueur on GotoLiquorStore http://www.devglsstore.com/p/grand-marnier-cordon-rouge-liqueur/2492",
+    "noStoreTexts": [
+      "Not available",
+      "Sorry, this product is currently unavailable in your area.",
+      "Please choose a different size or explore other awesome products."
+    ],
+    "isSugarFree": false,
+    "isGlutenFree": false,
+    "isInWishlist": false,
+    "sugarAndGlutenFreeText": "",
+    "quantity": 0,
+    "checkAvailabilityText": "Enter address to see price and availability in your area.",
+    "displayCheckAvailabilityButton": true,
+    "isGift": false,
+    "isNewArrival": false,
+    "displayOnSite": false,
+    "displayGoogleFeedJson": false,
+    "minimumPrice": 0,
+    "id": 2492
+  },
+  "packageTypes": [
+    {
+      "name": "Bottle"
+    }
+  ],
+  "packagingDetails": [
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "50ml Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 1040,
+      "unitType": "ml",
+      "unitSize": "50"
+    },
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "200ml Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 1041,
+      "unitType": "ml",
+      "unitSize": "200"
+    },
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "375ml Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 2187,
+      "unitType": "ml",
+      "unitSize": "375"
+    },
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "750ml Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 2492,
+      "unitType": "ml",
+      "unitSize": "750"
+    },
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "1L Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 1043,
+      "unitType": "L",
+      "unitSize": "1"
+    },
+    {
+      "unitPackageType": "Bottle",
+      "packageSize": "1.75L Bottle",
+      "name": "Grand Marnier Cordon Rouge Liqueur",
+      "seName": "grand-marnier-cordon-rouge-liqueur",
+      "systemName": "Grand Marnier Cordon Rouge Liqueur",
+      "id": 1044,
+      "unitType": "L",
+      "unitSize": "1.75"
+    }
+  ],
+  "productMediaDetails": [
+    {
+      "id": 1155,
+      "productId": 2492,
+      "midSize": "https://images.gotoliquorstore.com/product/1000002491/d22d084d-aead-414b-9c21-a39814386c33_360_m.jpg",
+      "normalSize": "https://images.gotoliquorstore.com/product/1000002491/d22d084d-aead-414b-9c21-a39814386c33_510_m.jpg",
+      "fullSize": "https://images.gotoliquorstore.com/product/1000002491/d22d084d-aead-414b-9c21-a39814386c33_1000_m.jpg",
+      "mediaType": 1,
+      "displayOrder": 1
+    }
+  ],
+  "pickupStores": []
+}

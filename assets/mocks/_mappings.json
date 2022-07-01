@@ -14,5 +14,13 @@
     "httpStatus": 200,
     "successFile": "assets/mocks/orders_success_response.json",
     "errorFile": "assets/mocks/common_error_response.json"
+  },
+  {
+    "uri": "product/getproductbyupc",
+    "method": "POST",
+    "applyMock": true,
+    "httpStatus": 200,
+    "successFile": "assets/mocks/product_details_success_response.json",
+    "errorFile": "assets/mocks/common_error_response.json"
   }
 ]
