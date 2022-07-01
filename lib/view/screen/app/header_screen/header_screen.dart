@@ -30,7 +30,7 @@ class HeaderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return screenWithAppBar(
-      title: "Header",
+      title: "Home",
       body: _HeaderBody(),
     );
   }
