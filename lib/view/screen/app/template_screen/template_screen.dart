@@ -14,6 +14,8 @@ import 'package:gls_template/view/models/category_vo.dart';
 import 'package:gls_template/view/models/header_vo.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:pdf/pdf.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
@@ -103,7 +105,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
 
   Widget _bodyView() {
     return SingleChildScrollView(
-      child: TGView.columnContainer(children: [_templateContainer(), nextButtonContainer()]),
+      child: TGView.columnContainer(children: [_templateContainer(), exportButtonContainer()]),
     );
   }
 
@@ -141,6 +143,26 @@ class _TemplateBodyState extends State<_TemplateBody> {
     }
     final result = await ImageGallerySaver.saveImage(pngBytes);
     print(result);
+  }
+  Future getPdf() async {
+    RenderRepaintBoundary boundary = _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+    ui.Image image = await boundary.toImage();
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
+    Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+    pw.Document pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        pageFormat: PdfPageFormat.a4,
+        build: (context) {
+          return pw.Expanded(child: pw.Image(pw.MemoryImage(pngBytes), fit: pw.BoxFit.contain));
+        },
+      ),
+    );
+    Directory? dir =
+    Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    final File pdfFile = File('${dir!.path}/template.pdf');
+    pdfFile.writeAsBytesSync(await pdf.save());
   }
 
   Widget _categoryContainer(CategoryVO categoryVO) {
@@ -193,13 +215,26 @@ class _TemplateBodyState extends State<_TemplateBody> {
     );
   }
 
-  Widget nextButtonContainer() {
-    return Container(
-        padding: const EdgeInsets.all(20),
-        child: elevatedButton("Export as PNG", () {
-          // performLogout(context);
-          capturePng();
-        }));
+  Widget exportButtonContainer() {
+    return TGView.rowContainer(
+      left: [
+        Container(
+          padding: const EdgeInsets.all(20),
+          child: button(() {
+            capturePng();
+          }, text: "Export as PNG"),
+        )
+      ],
+      center: [TGView.emptySizedBox(width: 10)],
+      right: [
+        Container(
+            padding: const EdgeInsets.all(20),
+            child: button(() {
+              // performLogout(context);
+              getPdf();
+            }, text: "Export as PDF"))
+      ],
+    );
   }
 
   Widget divider(Color color) {
