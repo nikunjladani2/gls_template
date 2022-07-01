@@ -73,16 +73,24 @@ class _HeaderState extends State<_HeaderBody> {
   Color? _backgroundColor;
   Color? _textColor;
   DateTime? _selectedDate;
-  final TextEditingController _storeNameController = TextEditingController(text: "A1 WINE & SPIRIT");
-  final TextEditingController _addressController = TextEditingController(text: "7884 Maxico Rd");
-  final TextEditingController _cityController = TextEditingController(text: "Saint Peters");
-  final TextEditingController _zipcodeController = TextEditingController(text: "MO 63376");
-  final TextEditingController _phoneNoController = TextEditingController(text: "636 387 0330");
-  final TextEditingController _websiteController = TextEditingController(text: "www.a1wineandspirit.com");
+  final TextEditingController _storeNameController =
+      TextEditingController(text: "A1 WINE & SPIRIT");
+  final TextEditingController _addressController =
+      TextEditingController(text: "7884 Maxico Rd");
+  final TextEditingController _cityController =
+      TextEditingController(text: "Saint Peters");
+  final TextEditingController _zipcodeController =
+      TextEditingController(text: "MO 63376");
+  final TextEditingController _phoneNoController =
+      TextEditingController(text: "636 387 0330");
+  final TextEditingController _websiteController =
+      TextEditingController(text: "www.a1wineandspirit.com");
   final TextEditingController _expiryDateController = TextEditingController();
-  final TextEditingController _backgroundColorController = TextEditingController();
+  final TextEditingController _backgroundColorController =
+      TextEditingController();
   final TextEditingController _textColorController = TextEditingController();
 
+  bool _isShowLogoError = false;
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
@@ -137,7 +145,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _storeNameController,
           focusNode: _storeNameFocusNode,
@@ -169,7 +180,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _addressController,
           focusNode: _addressFocusNode,
@@ -202,7 +216,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _cityController,
           focusNode: _cityFocusNode,
@@ -235,7 +252,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _zipcodeController,
           focusNode: _zipcodeFocusNode,
@@ -268,7 +288,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _phoneNoController,
           focusNode: _phoneNoFocusNode,
@@ -301,7 +324,10 @@ class _HeaderState extends State<_HeaderBody> {
         child: TextFormField(
           enabled: true,
           enableInteractiveSelection: true,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           autovalidateMode: _autoValidateMode,
           controller: _websiteController,
           focusNode: _websiteFocusNode,
@@ -332,7 +358,10 @@ class _HeaderState extends State<_HeaderBody> {
           focusNode: AlwaysDisabledFocusNode(),
           enableInteractiveSelection: true,
           controller: _expiryDateController,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           decoration: textFieldDecoration(
             text: "Expiry Date",
             textColor: primaryColor,
@@ -351,7 +380,10 @@ class _HeaderState extends State<_HeaderBody> {
           focusNode: AlwaysDisabledFocusNode(),
           enableInteractiveSelection: true,
           controller: _backgroundColorController,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           decoration: textFieldDecoration(
             text: "Background Colour",
             textColor: primaryColor,
@@ -370,7 +402,10 @@ class _HeaderState extends State<_HeaderBody> {
           focusNode: AlwaysDisabledFocusNode(),
           enableInteractiveSelection: true,
           controller: _textColorController,
-          style: textFieldStyle(color: primaryColor, size: fontSize14, fontWeight: FontWeightSize.medium),
+          style: textFieldStyle(
+              color: primaryColor,
+              size: fontSize14,
+              fontWeight: FontWeightSize.medium),
           decoration: textFieldDecoration(
             text: "Text Colour",
             textColor: primaryColor,
@@ -385,12 +420,14 @@ class _HeaderState extends State<_HeaderBody> {
     return InkWell(
         onTap: () async {
           await _requestGalleryPermission();
-          Permission _permission = Platform.isIOS ? Permission.photos : Permission.storage;
+          Permission _permission =
+              Platform.isIOS ? Permission.photos : Permission.storage;
           PermissionStatus status = await _permission.status;
           TGLog.d(status.toString());
           if (await _permission.isGranted) {
             _getImageFromGallery(ImageType.logo);
-          } else if (await _permission.isDenied || await _permission.isPermanentlyDenied) {
+          } else if (await _permission.isDenied ||
+              await _permission.isPermanentlyDenied) {
             if (Platform.isAndroid) {
               _permissionAlertDialog();
             }
@@ -400,16 +437,27 @@ class _HeaderState extends State<_HeaderBody> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              textLabel(text: "Upload Logo", color: primaryColor, fontWeight: FontWeight.bold, size: fontSize14),
+              textLabel(
+                  text: "Upload Logo",
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  size: fontSize14),
               TGView.emptySizedBox(height: 10),
-              _logoUrl != "" ? _logoPreViewWidget() : Container(
-                margin: const EdgeInsets.all(5.0),
-                height: 100, width: 100,
-                decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black38)
-                ),
-                child: Icon(Icons.camera_alt_rounded, size: 40),
-              )
+              _logoUrl != ""
+                  ? _logoPreViewWidget()
+                  : Container(
+                      margin: const EdgeInsets.all(5.0),
+                      height: 100,
+                      width: 100,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38)),
+                      child: Icon(Icons.camera_alt_rounded, size: 40),
+                    ),
+              Container(
+                  child: textLabel(
+                      text: _isShowLogoError ? "Please select logo" : "",
+                      color: Colors.red,
+                      size: fontSize14)),
             ]));
   }
 
@@ -417,12 +465,14 @@ class _HeaderState extends State<_HeaderBody> {
     return InkWell(
         onTap: () async {
           await _requestGalleryPermission();
-          Permission _permission = Platform.isIOS ? Permission.photos : Permission.storage;
+          Permission _permission =
+              Platform.isIOS ? Permission.photos : Permission.storage;
           PermissionStatus status = await _permission.status;
           TGLog.d(status.toString());
           if (await _permission.isGranted) {
             _getImageFromGallery(ImageType.banner);
-          } else if (await _permission.isDenied || await _permission.isPermanentlyDenied) {
+          } else if (await _permission.isDenied ||
+              await _permission.isPermanentlyDenied) {
             if (Platform.isAndroid) {
               _permissionAlertDialog();
             }
@@ -432,28 +482,37 @@ class _HeaderState extends State<_HeaderBody> {
             padding: const EdgeInsets.symmetric(vertical: 20),
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              textLabel(text: "Upload Banner", color: primaryColor, fontWeight: FontWeight.bold, size: fontSize14),
+              textLabel(
+                  text: "Upload Banner",
+                  color: primaryColor,
+                  fontWeight: FontWeight.bold,
+                  size: fontSize14),
               TGView.emptySizedBox(height: 10),
-              _bannerUrl != "" ? _bannerPreViewWidget() : Container(
-                  margin: const EdgeInsets.all(5.0),
-                  height: 120, width: 300,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black38)
-                  ),
-                  child: Icon(Icons.camera_alt_rounded, size: 40),
-              )
+              _bannerUrl != ""
+                  ? _bannerPreViewWidget()
+                  : Container(
+                      margin: const EdgeInsets.all(5.0),
+                      height: 120,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38)),
+                      child: Icon(Icons.camera_alt_rounded, size: 40),
+                    )
             ]));
   }
 
   _getImageFromGallery(String imageType) async {
     try {
-      final pickedFile = (await _picker.pickImage(source: ImageSource.gallery, imageQuality: 25));
+      final pickedFile = (await _picker.pickImage(
+          source: ImageSource.gallery, imageQuality: 25));
 
       if (pickedFile != null) {
         File? croppedFile = await ImageCropper().cropImage(
             sourcePath: pickedFile.path,
             aspectRatioPresets: [
-              imageType == ImageType.logo ? CropAspectRatioPreset.square : CropAspectRatioPreset.ratio16x9,
+              imageType == ImageType.logo
+                  ? CropAspectRatioPreset.square
+                  : CropAspectRatioPreset.ratio16x9,
               // CropAspectRatioPreset.ratio3x2,
               // CropAspectRatioPreset.original,
               // CropAspectRatioPreset.ratio4x3,
@@ -484,7 +543,7 @@ class _HeaderState extends State<_HeaderBody> {
           /*final bytes = File(_selectedFile!.path).readAsBytesSync().lengthInBytes;
           final kb = bytes / 1024;
           print("size after crop....$kb");*/
-
+          _updateShowLogoError(false);
           if (croppedFile != null) {
             // _uploadAvatarServiceCall();
           }
@@ -498,7 +557,8 @@ class _HeaderState extends State<_HeaderBody> {
   }
 
   Future<void> _requestGalleryPermission() async {
-    Permission _permission = Platform.isIOS ? Permission.photos : Permission.storage;
+    Permission _permission =
+        Platform.isIOS ? Permission.photos : Permission.storage;
     if (await _permission.request().isGranted) {
       // Either the permission was already granted before or the user just granted it.
     } else if (await _permission.isPermanentlyDenied) {
@@ -507,7 +567,8 @@ class _HeaderState extends State<_HeaderBody> {
       // _permissionAlertDialog("photo");
     } else {
       // You can request multiple permissions at once.
-      Map<Permission, PermissionStatus> statuses = await [_permission].request();
+      Map<Permission, PermissionStatus> statuses =
+          await [_permission].request();
       print(statuses[_permission]);
     }
   }
@@ -576,8 +637,9 @@ class _HeaderState extends State<_HeaderBody> {
       _selectedDate = newSelectedDate;
       _expiryDateController
         ..text = DateFormat.yMMMd().format(_selectedDate!)
-        ..selection = TextSelection.fromPosition(
-            TextPosition(offset: _expiryDateController.text.length, affinity: TextAffinity.upstream));
+        ..selection = TextSelection.fromPosition(TextPosition(
+            offset: _expiryDateController.text.length,
+            affinity: TextAffinity.upstream));
     }
   }
 
@@ -596,23 +658,43 @@ class _HeaderState extends State<_HeaderBody> {
       if (_formKey.currentState!.validate()) {
         _formKey.currentState!.save();
         TGView.clearFocus(context);
-        HeaderVO headerVO = HeaderVO();
-        headerVO.storeName = _storeName;
-        headerVO.storeAddress = _storeAddress;
-        headerVO.city = _storeCity;
-        headerVO.zipcode = _storeZipCode;
-        headerVO.phoneNo = _storePhoneNo;
-        headerVO.website = _storeWebsite;
-        headerVO.expiryDate = DateFormat.yMMMd().format(_selectedDate!);
-        headerVO.backgroundColor = _backgroundColor;
-        headerVO.textColor = _textColor;
-        headerVO.logoUrl = _logoUrl;
-        headerVO.bannerUrl = _bannerUrl;
+        if(_isValid()){
+          HeaderVO headerVO = HeaderVO();
+          headerVO.storeName = _storeName;
+          headerVO.storeAddress = _storeAddress;
+          headerVO.city = _storeCity;
+          headerVO.zipcode = _storeZipCode;
+          headerVO.phoneNo = _storePhoneNo;
+          headerVO.website = _storeWebsite;
+          headerVO.expiryDate = _selectedDate != null
+              ? DateFormat.yMMMd().format(_selectedDate!)
+              : "";
+          headerVO.backgroundColor = _backgroundColor;
+          headerVO.textColor = _textColor;
+          headerVO.logoUrl = _logoUrl;
+          headerVO.bannerUrl = _bannerUrl;
 
-        TGSession.getInstance().set(SessionKey.keyObjHeader, headerVO);
+          TGSession.getInstance().set(SessionKey.keyObjHeader, headerVO);
 
-        Navigator.of(context).pushNamed(ScreenRoute.addProduct);
+          Navigator.of(context).pushNamed(ScreenRoute.addProduct);
+        }
       }
+    });
+  }
+
+  bool _isValid() {
+    if (_logoUrl.isEmpty) {
+      _updateShowLogoError(true);
+      return false;
+    }
+    return true;
+  }
+
+  void _updateShowLogoError(bool isShow){
+    setState(() {
+      setState(() {
+        _isShowLogoError = isShow;
+      });
     });
   }
 

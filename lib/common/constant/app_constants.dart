@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 class AppConstant {
-  static const bool applyMockMappings = true;
+  static const bool applyMockMappings = false;
   static const String mockMappingFile = "assets/mocks/_mappings.json";
   static const String configFlavorsFile = "assets/config/flavors.json";
 
