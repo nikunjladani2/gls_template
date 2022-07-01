@@ -198,9 +198,10 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
     setState(() {
       _autoValidateMode = AutovalidateMode.onUserInteraction;
       if (_formKey.currentState!.validate()) {
-        _showHideLoader(true);
+      //  _showHideLoader(true);
         _formKey.currentState!.save();
         TGView.clearFocus(context);
+        Navigator.of(context).pushReplacementNamed(ScreenRoute.header);
         // loginServiceCall(
         //     context: context,
         //     email: _emailController.text.trim(),
