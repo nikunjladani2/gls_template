@@ -148,10 +148,33 @@ class _TemplateBodyState extends State<_TemplateBody> {
         isProductAdded: false,
         price: "\$159.99",
         quantity: "750ml"));
+
+    List<ItemVO> bourbonItemList2 = [];
+    bourbonItemList2.add(ItemVO(
+        name: "Jim Beam",
+        isProductAdded: false,
+        price: "\$129.99",
+        quantity: "1.75ml"));
+    bourbonItemList2.add(ItemVO(
+        name: "Basil Hayden's Toast",
+        isProductAdded: false,
+        price: "\$139.99",
+        quantity: "750ml"));
+    bourbonItemList2.add(ItemVO(
+        name: "Larceny Small Batch",
+        isProductAdded: false,
+        price: "\$149.99",
+        quantity: "1.75ml"));
+    bourbonItemList2.add(ItemVO(
+        name: "Maker's Mark",
+        isProductAdded: false,
+        price: "\$169.99",
+        quantity: "750ml"));
     category = [
       CategoryVO(categoryName: "TEQUILA", itemList: taquilaItemList),
       CategoryVO(categoryName: "BOURBON", itemList: bourbonItemList),
-      CategoryVO(categoryName: "SCOTCH", itemList: scotchItemList)
+      CategoryVO(categoryName: "SCOTCH", itemList: scotchItemList),
+      CategoryVO(categoryName: "BOURBON 2", itemList: bourbonItemList2),
     ];
 
     PRODUCT_CELL_HEIGHT = (IMAGE_SIZE -
@@ -441,52 +464,57 @@ class _TemplateBodyState extends State<_TemplateBody> {
   }
 
   Widget _categoryItemContainer(ItemVO itemVO) {
+    double cellPaddeing = 10.0;
     return Row(
       children: [
         Expanded(
           flex: 3,
           child: Padding(
-            padding: const EdgeInsets.all(5.0),
+            padding: EdgeInsets.all(cellPaddeing),
             child: Container(
               color: Colors.transparent,
               child: Image(
-                  width: 30,
-                  height: 110,
+                  width: 20,
+                  height: PRODUCT_CELL_HEIGHT - (cellPaddeing * 2),
+                  fit: BoxFit.fitHeight,
                   image: AssetImage('assets/images/${itemVO.image}')),
             ),
           ),
         ),
         Expanded(
-          flex: 5,
-          child: TGView.columnContainer(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                      height: 30,
-                      child: textLabel(
-                          text: itemVO.name,
-                          maxLines: 2,
-                          size: fontSize10,
-                          fontWeight: FontWeight.bold)),
-                ),
-                TGView.emptySizedBox(height: 18),
-                textLabel(
-                    text: itemVO.quantity,
-                    size: fontSize9,
-                    fontWeight: FontWeight.bold),
-                TGView.emptySizedBox(height: 5),
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  color: Colors.red,
-                  child: textLabel(
-                      text: itemVO.price,
-                      size: fontSize14,
-                      fontWeight: FontWeight.bold,
-                      color: whiteColor),
-                )
-              ]),
+          flex: 6,
+          child: SizedBox(
+            height: PRODUCT_CELL_HEIGHT - (cellPaddeing * 2),
+            child: TGView.columnContainer(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                color: Colors.transparent,
+                children: [
+                  SizedBox(
+                    //height: 30,
+                    child: textLabel(
+                        text: itemVO.name,
+                        maxLines: 2,
+                        size: fontSize15,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  // TGView.emptySizedBox(height: 18),
+                  const Spacer(),
+                  textLabel(
+                      text: itemVO.quantity,
+                      size: fontSize15,
+                      fontWeight: FontWeight.bold),
+                  TGView.emptySizedBox(height: 5),
+                  Container(
+                    padding: const EdgeInsets.all(5),
+                    color: Colors.red,
+                    child: textLabel(
+                        text: itemVO.price,
+                        size: fontSize22,
+                        fontWeight: FontWeight.bold,
+                        color: whiteColor),
+                  )
+                ]),
+          ),
         )
       ],
     );

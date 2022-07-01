@@ -49,5 +49,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSCameraUsageDescription</key>
+	<string>&quot;GLS Template&quot; wants to access your camera</string>
 </dict>
 </plist>
