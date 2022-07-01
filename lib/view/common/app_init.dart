@@ -1,14 +1,15 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:gls_template/common/app_functions.dart';
 import 'package:gls_template/common/constant/app_constants.dart';
 import 'package:gls_template/common/constant/key_constant.dart';
 import 'package:gls_template/main.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
 import 'package:techgrains/com/techgrains/localization/tg_locale.dart';
+import 'package:techgrains/com/techgrains/service/tg_service.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_shared_preferences.dart';
 import 'package:techgrains/com/techgrains/util/tg_flavor.dart';
@@ -73,4 +74,16 @@ Future<void> initAppVersionInfo() async {
     TGLog.e('Failed to get project version.');
   }
   TGSession.getInstance().set(SessionKey.keyAppVersion, (projectVersion != null) ? "v" + projectVersion : "");
+}
+
+
+Future<void> initService() async {
+  TGLog.d("initService()");
+  await TGService.init(
+      baseUrl: serviceBaseUrl(),
+      applyMock: AppConstant.applyMockMappings,
+      mockMappingsFile: AppConstant.mockMappingFile,
+      headers: defaultHeaders(),
+      badCertificateCallbackEnabled: false);
+  setAccessTokenInRequestHeader();
 }

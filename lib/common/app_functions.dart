@@ -7,6 +7,7 @@ import 'package:gls_template/view/common/app_colors.dart';
 import 'package:gls_template/view/common/elements_textfield.dart';
 import 'package:gls_template/view/common/view_constant.dart';
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
+import 'package:techgrains/com/techgrains/service/request/tg_request.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_shared_preferences.dart';
 import 'package:techgrains/com/techgrains/util/tg_flavor.dart';
@@ -32,6 +33,13 @@ Map<String, String> defaultHeaders() {
   headers['AppVersion'] =
       TGSession.getInstance().get(SessionKey.keyAppVersionForService) ?? "";
   return headers;
+}
+
+Future<void> setAccessTokenInRequestHeader() async {
+  String? guestUserToken = TGSession.getInstance().get(SessionKey.keyGuestUserToken);
+  if (guestUserToken != null) {
+    TGRequest.defaultHeaders!['Authorization'] = 'Bearer $guestUserToken';
+  }
 }
 
 

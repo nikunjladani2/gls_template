@@ -1,11 +1,10 @@
 import 'dart:async';
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:gls_template/common/constant/key_constant.dart';
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
-import 'package:gls_template/common/constant/key_constant.dart';
 import 'package:gls_template/view/common/app_colors.dart';
 import 'package:gls_template/view/common/app_init.dart';
 import 'package:gls_template/view/common/elements_screen.dart';
@@ -36,7 +35,20 @@ class _LoadingState extends State<_LoadingBody> {
   _asyncInit() async {
     TGLog.d("Loading._asyncInit()");
     await _init();
-    Navigator.of(context).pushReplacementNamed(ScreenRoute.login);
+    Timer(const Duration(seconds: 3), () {
+      checkAutoLogin();
+    });
+  }
+
+  void checkAutoLogin() async {
+    TGLog.d("Loading.checkAutoLogin()");
+    String keyGuestUserToken = TGSession.getInstance().get(SessionKey.keyGuestUserToken) ?? "";
+
+    if (keyGuestUserToken.isNotEmpty) {
+      Navigator.of(context).pushReplacementNamed(ScreenRoute.header);
+    } else {
+      Navigator.of(context).pushReplacementNamed(ScreenRoute.login);
+    }
   }
 
   Future<void> _init() async {
@@ -45,6 +57,7 @@ class _LoadingState extends State<_LoadingBody> {
     await initTheme(context);
     await initAppVersionInfo();
     await initLocale();
+    await initService();
     TGLog.d("_init: End");
   }
 

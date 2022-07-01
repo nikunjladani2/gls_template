@@ -1,15 +1,24 @@
 import 'dart:core';
 import 'package:flutter/material.dart';
+import 'package:gls_template/common/app_functions.dart';
 import 'package:gls_template/common/constant/app_constants.dart';
+import 'package:gls_template/common/constant/key_constant.dart';
+import 'package:gls_template/common/constant/uris_constant.dart';
 import 'package:gls_template/view/common/app_colors.dart';
 import 'package:gls_template/view/common/elements_button.dart';
+import 'package:gls_template/view/common/elements_dialog.dart';
 import 'package:gls_template/view/common/elements_screen.dart';
 import 'package:gls_template/view/common/elements_textstyle.dart';
 import 'package:gls_template/view/common/view_constant.dart';
+import 'package:techgrains/com/techgrains/common/tg_log.dart';
 import 'package:techgrains/com/techgrains/localization/tg_locale.dart';
+import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
+import 'package:techgrains/com/techgrains/singleton/tg_shared_preferences.dart';
+import 'package:techgrains/com/techgrains/util/tg_net_util.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
 
 import '../../../common/elements_common.dart';
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -57,16 +66,22 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return SafeArea(
       top: false,
-      child: screenWithAppBar(
-        title: "Login",
-        body: TGView.columnContainer(color: Colors.white, children: [
-          Expanded(child: _detailsWidget()),
-          // const Divider(
-          //   height: 1,
-          // ),
-          // bottomWidget()
-        ]),
-      ),
+      // child: screenWithAppBar(
+      //   title: "Login",
+      //   body: TGView.columnContainer(color: Colors.white, children: [
+      //     Expanded(child: _detailsWidget()),
+      //     // const Divider(
+      //     //   height: 1,
+      //     // ),
+      //     // bottomWidget()
+      //   ]),
+      // ),
+
+      child: TGView.columnContainer(
+          padding: const EdgeInsets.symmetric(horizontal: Spacing.extraLargeSpacing),
+          color: Colors.white, children: [
+        Expanded(child: _loginButtonWidget()),
+      ]),
     );
   }
 
@@ -160,10 +175,10 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
           obscureText: true,
           textInputAction: TextInputAction.done,
           keyboardType: TextInputType.text,
-            decoration: textFieldDecoration(
-              text: "Password",
-              textColor: primaryColor,
-            ),
+          decoration: textFieldDecoration(
+            text: "Password",
+            textColor: primaryColor,
+          ),
           validator: _validatePassword,
           onFieldSubmitted: (String value) {
             _loginButtonPressed();
@@ -187,8 +202,11 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
         children: <Widget>[
           _isLoading
               ? loadingIndicatorWidget()
-              : elevatedButton(
-                  TGLocale.text("Login"), _loginButtonPressed),
+              : elevatedButton(TGLocale.text("Continue as guest"), (){
+            //_loginButtonPressed();
+            _showHideLoader(true);
+            createGuestUserServiceCall(context);
+          }),
         ],
       ),
     );
@@ -198,63 +216,46 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
     setState(() {
       _autoValidateMode = AutovalidateMode.onUserInteraction;
       if (_formKey.currentState!.validate()) {
-      //  _showHideLoader(true);
+          _showHideLoader(true);
         _formKey.currentState!.save();
         TGView.clearFocus(context);
-        Navigator.of(context).pushReplacementNamed(ScreenRoute.header);
-        // loginServiceCall(
-        //     context: context,
-        //     email: _emailController.text.trim(),
-        //     password: _passwordController.text.trim());
+        createGuestUserServiceCall(context);
       }
     });
   }
 
-  // Future<void> loginServiceCall(
-  //     {required BuildContext context,
-  //     String email = "",
-  //     String password = ""}) async {
-  //   if (await TGNetUtil.isInternetAvailable()) {
-  //     TGPostRequest request = LoginRequest(email: email, password: password);
-  //
-  //     ServiceManager.getInstance().login(
-  //         request: request,
-  //         onSuccess: (response) => _onSuccessLogin(
-  //               response,
-  //             ),
-  //         onError: (error) => _onErrorLogin(error, context: context));
-  //   } else {
-  //     _showHideLoader(false);
-  //     showSimpleSnackBar(
-  //         context: context,
-  //         duration: const Duration(milliseconds: 800),
-  //         message: TGLocale.text(LocaleKey.localeMessageInternetNotAvailable),
-  //         bgColor: redColor);
-  //   }
-  // }
-  //
-  // _onSuccessLogin(LoginResponse response) {
-  //   TGLog.d("LoginResponse : onSuccess()");
-  //   TGSession.getInstance().set(SessionKey.keyObjUser, response.userVO());
-  //   TGSharedPreferences.getInstance()
-  //       .set(SessionKey.keyObjUser, json.encode(response.userVO().toJson()));
-  //   setAccessTokenInRequestHeader();
-  //   _showHideLoader(false);
-  //
-  //   //goToNavigation
-  //   Navigator.of(context).pushReplacementNamed(ScreenRoute.navigation);
-  // }
-  //
-  // _onErrorLogin(TGResponse errorResponse, {required BuildContext context}) {
-  //   TGLog.d("LoginResponse : onError() > " + errorResponse.body.toString());
-  //   _showHideLoader(false);
-  //   final response = json.decode(errorResponse.body!);
-  //   showSimpleSnackBar(
-  //       context: context,
-  //       duration: const Duration(milliseconds: 800),
-  //       message: response['message'],
-  //       bgColor: redColor);
-  // }
+  Future<bool> createGuestUserServiceCall(BuildContext context,
+      {bool isFromLogout = false}) async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      String _baseUrl = serviceBaseUrl();
+      var url = Uri.parse(_baseUrl + URI.createGuestUser);
+      TGLog.d("$url");
+      var response = await http.get(
+        url,
+        headers: defaultHeaders(),
+      );
+      if (response.statusCode != 200) {
+        _showHideLoader(false);
+        TGLog.d("CreateGuestUserResponse : onError() > " +
+            response.body.toString());
+        return false;
+      } else {
+        TGLog.d("CreateGuestUserResponse : onSuccess()");
+        TGSession.getInstance()
+            .set(SessionKey.keyGuestUserToken, response.body.toString());
+        TGSharedPreferences.getInstance()
+            .set(SessionKey.keyGuestUserToken, response.body.toString());
+        setAccessTokenInRequestHeader();
+        Navigator.of(context).pushReplacementNamed(ScreenRoute.header);
+        _showHideLoader(false);
+        return true;
+      }
+    }
+    else{
+      _showHideLoader(false);
+    }
+    return false;
+  }
 
   void _showHideLoader(bool isShow) {
     setState(() {

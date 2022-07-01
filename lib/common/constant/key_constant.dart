@@ -11,6 +11,7 @@ class SessionKey {
 //object
   static const String keyObjHeader = "objHeader";
 
+  static const String keyGuestUserToken = "keyGuestUserToken";
 }
 
 
