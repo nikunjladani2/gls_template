@@ -1,23 +1,36 @@
+import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:barcode_scan2/barcode_scan2.dart';
+import 'package:barcode_scan2/model/scan_result.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:gls_template/common/app_functions.dart';
 import 'package:gls_template/common/constant/key_constant.dart';
+import 'package:gls_template/manager/service_manager.dart';
 import 'package:gls_template/view/common/app_colors.dart';
 import 'package:gls_template/view/common/elements_button.dart';
+import 'package:gls_template/view/common/elements_dialog.dart';
 import 'package:gls_template/view/common/elements_screen.dart';
 import 'package:gls_template/view/common/elements_textfield.dart';
 import 'package:gls_template/view/common/view_constant.dart';
 import 'package:gls_template/view/models/category_vo.dart';
 import 'package:gls_template/view/models/header_vo.dart';
+import 'package:gls_template/view/models/request/productr_detail_by_upc_request.dart';
+import 'package:gls_template/view/models/response/product_detail_response.dart';
+import 'package:gls_template/view/models/vo/product_vo.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
+import 'package:permission_handler/permission_handler.dart';
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
+import 'package:techgrains/com/techgrains/service/request/tg_post_request.dart';
+import 'package:techgrains/com/techgrains/service/response/tg_response.dart';
 import 'package:techgrains/com/techgrains/singleton/tg_session.dart';
+import 'package:techgrains/com/techgrains/util/tg_net_util.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
 import 'dart:ui' as ui;
 
@@ -292,9 +305,10 @@ class _TemplateBodyState extends State<_TemplateBody> {
                                   ),
                                 ),
                                 onTap: () {
-                                  setState(() {
-                                    item.isProductAdded = true;
-                                  });
+                                  // setState(() {
+                                  //   item.isProductAdded = true;
+                                  // });
+                                  _scanQRCode(item);
                                 },
                               ),
                             ),
@@ -435,10 +449,10 @@ class _TemplateBodyState extends State<_TemplateBody> {
             padding: const EdgeInsets.all(5.0),
             child: Container(
               color: Colors.transparent,
-              child: const Image(
+              child: Image(
                   width: 30,
                   height: 110,
-                  image: AssetImage('assets/images/bottle.png')),
+                  image: AssetImage('assets/images/${itemVO.image}')),
             ),
           ),
         ),
@@ -476,5 +490,87 @@ class _TemplateBodyState extends State<_TemplateBody> {
         )
       ],
     );
+  }
+
+  Future _scanQRCode(ItemVO item) async {
+    ScanResult qrCode;
+    try {
+      qrCode = await BarcodeScanner.scan();
+      if (qrCode.rawContent.isNotEmpty) {
+        TGLog.d("qrCode.rawContent....." + qrCode.rawContent);
+        _fetchProductDetailByUpcCall(item);
+      }
+    } on PlatformException catch (e) {
+      if (e.code == BarcodeScanner.cameraAccessDenied) {
+        showAlertDialog(
+            context: context,
+            title: "Permission Denied",
+            isSuccess: false,
+            positiveButtonText: "GRANT",
+            negativeButtonText: "DENY",
+            message:
+                "Scan Product won't work without Camera permission. Tap on GRANT to give the permission for Scan Product",
+            messages: [],
+            onOkayPress: () async {
+              Navigator.of(context).pop(false);
+              await openAppSettings();
+            },
+            onCancelPress: () {
+              Navigator.of(context).pop(false);
+            });
+      } else {
+        TGLog.d("Scan error.........");
+      }
+    }
+  }
+
+  Future<void> _fetchProductDetailByUpcCall(ItemVO item) async {
+    if (await TGNetUtil.isInternetAvailable()) {
+      TGPostRequest request = ProductDetailByUpcRequest(
+          upc: "080480280017",
+          locationId: 2,
+          latitude: 38.5344927,
+          longitude: -90.3045836);
+
+      ServiceManager.getInstance().fetchProductDetailByUpc(
+          request: request,
+          onSuccess: (response) => _onSuccessProductDetail(response, item),
+          onError: (error) => _onErrorProductDetail(error, context: context));
+    } else {
+      showSimpleSnackBar(
+          context: context,
+          duration: const Duration(milliseconds: 800),
+          message: "Internet not reachable",
+          bgColor: Colors.red);
+    }
+  }
+
+  _onSuccessProductDetail(
+    ProductDetailResponse response,
+    ItemVO item,
+  ) {
+    TGLog.d("ProductDetailResponse : onSuccess()");
+    setState(() {
+      ProductVO? productVO = response.productDetailVO.productVO;
+      if (productVO != null) {
+        item.name = productVO.name;
+        item.image = "bottle1.png";
+        //item.price = productVO.displayPrice;
+        // item.quantity = productVO.quantity.toString();
+        item.isProductAdded = true;
+      }
+    });
+  }
+
+  _onErrorProductDetail(TGResponse errorResponse,
+      {required BuildContext context}) async {
+    TGLog.d(
+        "ProductDetailResponse : onError() > " + errorResponse.body.toString());
+    final response = json.decode(errorResponse.body!);
+    showSimpleSnackBar(
+        context: context,
+        duration: const Duration(milliseconds: 800),
+        message: response['message'],
+        bgColor: Colors.red);
   }
 }

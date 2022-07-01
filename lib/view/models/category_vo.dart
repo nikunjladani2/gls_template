@@ -7,7 +7,7 @@ class CategoryVO {
 
 class ItemVO {
   String name = "";
-  String image = "";
+  String image = "bottle.png";
   String price = "";
   String quantity = "";
   bool isProductAdded = false;

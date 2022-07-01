@@ -202,7 +202,7 @@ class _LoginState extends State<_LoginBody> with WidgetsBindingObserver {
         children: <Widget>[
           _isLoading
               ? loadingIndicatorWidget()
-              : elevatedButton(TGLocale.text("Continue as guest"), (){
+              : elevatedButton(TGLocale.text("Continue as Guest"), (){
             //_loginButtonPressed();
             _showHideLoader(true);
             createGuestUserServiceCall(context);

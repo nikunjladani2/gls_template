@@ -57,6 +57,7 @@ class _LoadingState extends State<_LoadingBody> {
     await initTheme(context);
     await initAppVersionInfo();
     await initLocale();
+    await initGuestUser();
     await initService();
     TGLog.d("_init: End");
   }

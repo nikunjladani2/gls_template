@@ -51,6 +51,15 @@ Future<void> initLocale() async {
   }
 }
 
+Future<void> initGuestUser() async {
+  TGLog.d("initGuestUser()");
+  String? guestUserToken =
+  await TGSharedPreferences.getInstance().get(SessionKey.keyGuestUserToken);
+  if (guestUserToken != null) {
+   TGSession.getInstance().set(SessionKey.keyGuestUserToken, guestUserToken);
+  }
+}
+
 Future<void> initAppVersionInfo() async {
   TGLog.d("_initAppVersionInfo()");
   String? projectVersion;
