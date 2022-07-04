@@ -850,7 +850,7 @@ class _HeaderState extends State<_HeaderBody> {
 
           TGSession.getInstance().set(SessionKey.keyObjHeader, headerVO);
 
-          Navigator.of(context).pushNamed(ScreenRoute.addProduct);
+          Navigator.of(context).pushNamed(ScreenRoute.templateType);
         }
       }
     });

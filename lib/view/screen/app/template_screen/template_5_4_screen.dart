@@ -34,18 +34,18 @@ import 'package:techgrains/com/techgrains/util/tg_net_util.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
 import 'dart:ui' as ui;
 
-class TemplateScreen extends StatelessWidget {
-  const TemplateScreen({Key? key}) : super(key: key);
+class Template54Screen extends StatelessWidget {
+  const Template54Screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return screenWithAppBar(
       isBackVisible: true,
-      title: "Template",
+      title: "5 * 4 Template",
       onBackPressed: () {
         _onBackPressed(context);
       },
-      body: _TemplateBody(),
+      body: _Template54Body(),
     );
   }
 
@@ -55,12 +55,12 @@ class TemplateScreen extends StatelessWidget {
   }
 }
 
-class _TemplateBody extends StatefulWidget {
+class _Template54Body extends StatefulWidget {
   @override
-  _TemplateBodyState createState() => _TemplateBodyState();
+  _Template54BodyState createState() => _Template54BodyState();
 }
 
-class _TemplateBodyState extends State<_TemplateBody> {
+class _Template54BodyState extends State<_Template54Body> {
   HeaderVO? _headerVO;
   List<CategoryVO> category = [];
   GlobalKey _globalKey = GlobalKey();
@@ -80,7 +80,6 @@ class _TemplateBodyState extends State<_TemplateBody> {
         .add(ItemVO(name: "Clazse Azul Reposado ", isProductAdded: false, price: "\$149.99", quantity: "650ml"));
     taquilaItemList.add(ItemVO(name: "Cincoro Anejo", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
     taquilaItemList.add(ItemVO(name: "Tesoro Maya Anejo", isProductAdded: false, price: "\$169.99", quantity: "650ml"));
-    taquilaItemList.add(ItemVO(name: "Don Julio Anejo", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
 
     List<ItemVO> bourbonItemList = [];
     bourbonItemList.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
@@ -97,7 +96,6 @@ class _TemplateBodyState extends State<_TemplateBody> {
     scotchItemList.add(ItemVO(name: "Buchanan's Deluxe", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
     scotchItemList
         .add(ItemVO(name: "Doublewood 12 Year Old", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
-    scotchItemList.add(ItemVO(name: "Oban 14 Year Old", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
 
     List<ItemVO> bourbonItemList2 = [];
     bourbonItemList2.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
@@ -106,15 +104,16 @@ class _TemplateBodyState extends State<_TemplateBody> {
     bourbonItemList2
         .add(ItemVO(name: "Larceny Small Batch", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
     bourbonItemList2.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
+
     category = [
-      CategoryVO(categoryName: "TEQUILA", itemList: taquilaItemList),
-      CategoryVO(categoryName: "BOURBON", itemList: bourbonItemList),
-      CategoryVO(categoryName: "SCOTCH", itemList: scotchItemList),
-      CategoryVO(categoryName: "BOURBON 2", itemList: bourbonItemList2),
+      CategoryVO(categoryName: "", itemList: taquilaItemList),
+      CategoryVO(categoryName: "", itemList: bourbonItemList),
+      CategoryVO(categoryName: "", itemList: scotchItemList),
+      CategoryVO(categoryName: "", itemList: scotchItemList),
+      CategoryVO(categoryName: "", itemList: bourbonItemList2),
     ];
 
-    PRODUCT_CELL_HEIGHT =
-        (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - ((category.length) * CELL_DEVIDER_HEIGHT)) / category.length;
+    PRODUCT_CELL_HEIGHT = (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - (5 * CELL_DEVIDER_HEIGHT)) / 5;
     TGLog.d("PRODUCT_CELL_HEIGHT " + PRODUCT_CELL_HEIGHT.toString());
     initHeader();
   }
@@ -157,8 +156,8 @@ class _TemplateBodyState extends State<_TemplateBody> {
           Column(
             children: category
                 .map((item) => _categoryContainer(
-                      item,
-                    ))
+              item,
+            ))
                 .toList(),
           )
         ]),
@@ -173,7 +172,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
     Uint8List pngBytes = byteData!.buffer.asUint8List();
     print(pngBytes);
     Directory? dir =
-        Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
     final File file = File('${dir!.path}/file.png');
     await file.writeAsBytes(pngBytes);
 
@@ -201,7 +200,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
       ),
     );
     Directory? dir =
-        Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
+    Platform.isAndroid ? await getExternalStorageDirectory() : await getApplicationDocumentsDirectory();
     final File pdfFile = File('${dir!.path}/template.pdf');
     pdfFile.writeAsBytesSync(await pdf.save());
   }
@@ -211,50 +210,36 @@ class _TemplateBodyState extends State<_TemplateBody> {
       children: [
         Row(
           children: [
-            RotatedBox(
-                quarterTurns: 3,
-                child: Container(
-                    color: Colors.blue,
-                    width: PRODUCT_CELL_HEIGHT,
-                    height: 80,
-                    child: Center(
-                      child: (textLabel(
-                        text: categoryVO.categoryName,
-                        color: whiteColor,
-                        size: fontSize20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    ))),
             Expanded(
               child: Row(
                   children: categoryVO.itemList
                       .map((item) => Expanded(
-                            flex: 1,
-                            child: Padding(
-                              padding: const EdgeInsets.only(right: 1),
-                              child: InkWell(
-                                child: Container(
-                                  color: whiteColor,
-                                  height: PRODUCT_CELL_HEIGHT,
-                                  alignment: Alignment.center,
-                                  child: Column(
-                                    children: [
-                                      if (!item.isProductAdded) ...[
-                                        const Expanded(child: Icon(Icons.camera_alt, size: 50))
-                                      ],
-                                      if (item.isProductAdded) ...[_categoryItemContainer(item)]
-                                    ],
-                                  ),
-                                ),
-                                onTap: () {
-                                  // setState(() {
-                                  //   item.isProductAdded = true;
-                                  // });
-                                  _scanQRCode(item);
-                                },
-                              ),
-                            ),
-                          ))
+                    flex: 1,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 1),
+                      child: InkWell(
+                        child: Container(
+                          color: whiteColor,
+                          height: PRODUCT_CELL_HEIGHT,
+                          alignment: Alignment.center,
+                          child: Column(
+                            children: [
+                              if (!item.isProductAdded) ...[
+                                const Expanded(child: Icon(Icons.camera_alt, size: 50))
+                              ],
+                              if (item.isProductAdded) ...[_categoryItemContainer(item)]
+                            ],
+                          ),
+                        ),
+                        onTap: () {
+                          // setState(() {
+                          //   item.isProductAdded = true;
+                          // });
+                          _scanQRCode(item);
+                        },
+                      ),
+                    ),
+                  ))
                       .toList()),
             ),
           ],
@@ -404,7 +389,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
                     padding: const EdgeInsets.all(5),
                     color: Colors.red,
                     child:
-                        textLabel(text: itemVO.price, size: fontSize22, fontWeight: FontWeight.bold, color: whiteColor),
+                    textLabel(text: itemVO.price, size: fontSize22, fontWeight: FontWeight.bold, color: whiteColor),
                   )
                 ]),
           ),
@@ -430,7 +415,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
             positiveButtonText: "GRANT",
             negativeButtonText: "DENY",
             message:
-                "Scan Product won't work without Camera permission. Tap on GRANT to give the permission for Scan Product",
+            "Scan Product won't work without Camera permission. Tap on GRANT to give the permission for Scan Product",
             messages: [],
             onOkayPress: () async {
               Navigator.of(context).pop(false);
@@ -448,7 +433,7 @@ class _TemplateBodyState extends State<_TemplateBody> {
   Future<void> _fetchProductDetailByUpcCall(ItemVO item) async {
     if (await TGNetUtil.isInternetAvailable()) {
       TGPostRequest request =
-          ProductDetailByUpcRequest(upc: "080480280017", locationId: 2, latitude: 38.5344927, longitude: -90.3045836);
+      ProductDetailByUpcRequest(upc: "080480280017", locationId: 2, latitude: 38.5344927, longitude: -90.3045836);
 
       ServiceManager.getInstance().fetchProductDetailByUpc(
           request: request,
@@ -464,9 +449,9 @@ class _TemplateBodyState extends State<_TemplateBody> {
   }
 
   _onSuccessProductDetail(
-    ProductDetailResponse response,
-    ItemVO item,
-  ) {
+      ProductDetailResponse response,
+      ItemVO item,
+      ) {
     TGLog.d("ProductDetailResponse : onSuccess()");
     setState(() {
       ProductVO? productVO = response.productDetailVO.productVO;

@@ -6,7 +6,10 @@ import 'package:gls_template/theme/app_theme.dart';
 import 'package:gls_template/view/common/app_colors.dart';
 import 'package:gls_template/view/common/view_constant.dart';
 import 'package:gls_template/view/screen/app/header_screen/header_screen.dart';
+import 'package:gls_template/view/screen/app/template_screen/template_4_4_screen.dart';
+import 'package:gls_template/view/screen/app/template_screen/template_5_4_screen.dart';
 import 'package:gls_template/view/screen/app/template_screen/template_screen.dart';
+import 'package:gls_template/view/screen/app/template_type_screen/template_type_screen.dart';
 import 'package:gls_template/view/screen/auth/login_screen/login_screen.dart';
 import 'package:gls_template/view/screen/loading/loading.dart';
 import 'package:techgrains/com/techgrains/common/tg_log.dart';
@@ -127,7 +130,10 @@ class _GLSTemplateAppState extends State<GLSTemplateApp> {
           ScreenRoute.splash: (BuildContext context) => const LoadingScreen(),
           ScreenRoute.login: (BuildContext context) => const LoginScreen(),
           ScreenRoute.header: (BuildContext context) => const HeaderScreen(),
-          ScreenRoute.addProduct: (BuildContext context) => const TemplateScreen(),
+          ScreenRoute.template: (BuildContext context) => const TemplateScreen(),
+          ScreenRoute.templateType: (BuildContext context) => const TemplateTypeScreen(),
+          ScreenRoute.template54: (BuildContext context) => const Template54Screen(),
+          ScreenRoute.template44: (BuildContext context) => const Template44Screen(),
         });
   }
 }

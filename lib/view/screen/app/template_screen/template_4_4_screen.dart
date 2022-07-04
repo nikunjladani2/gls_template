@@ -34,18 +34,18 @@ import 'package:techgrains/com/techgrains/util/tg_net_util.dart';
 import 'package:techgrains/com/techgrains/view/tg_view.dart';
 import 'dart:ui' as ui;
 
-class TemplateScreen extends StatelessWidget {
-  const TemplateScreen({Key? key}) : super(key: key);
+class Template44Screen extends StatelessWidget {
+  const Template44Screen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return screenWithAppBar(
       isBackVisible: true,
-      title: "Template",
+      title: "4 * 4 Template",
       onBackPressed: () {
         _onBackPressed(context);
       },
-      body: _TemplateBody(),
+      body: _Template44Body(),
     );
   }
 
@@ -55,12 +55,12 @@ class TemplateScreen extends StatelessWidget {
   }
 }
 
-class _TemplateBody extends StatefulWidget {
+class _Template44Body extends StatefulWidget {
   @override
-  _TemplateBodyState createState() => _TemplateBodyState();
+  _Template44BodyState createState() => _Template44BodyState();
 }
 
-class _TemplateBodyState extends State<_TemplateBody> {
+class _Template44BodyState extends State<_Template44Body> {
   HeaderVO? _headerVO;
   List<CategoryVO> category = [];
   GlobalKey _globalKey = GlobalKey();
@@ -80,7 +80,6 @@ class _TemplateBodyState extends State<_TemplateBody> {
         .add(ItemVO(name: "Clazse Azul Reposado ", isProductAdded: false, price: "\$149.99", quantity: "650ml"));
     taquilaItemList.add(ItemVO(name: "Cincoro Anejo", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
     taquilaItemList.add(ItemVO(name: "Tesoro Maya Anejo", isProductAdded: false, price: "\$169.99", quantity: "650ml"));
-    taquilaItemList.add(ItemVO(name: "Don Julio Anejo", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
 
     List<ItemVO> bourbonItemList = [];
     bourbonItemList.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
@@ -97,7 +96,6 @@ class _TemplateBodyState extends State<_TemplateBody> {
     scotchItemList.add(ItemVO(name: "Buchanan's Deluxe", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
     scotchItemList
         .add(ItemVO(name: "Doublewood 12 Year Old", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
-    scotchItemList.add(ItemVO(name: "Oban 14 Year Old", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
 
     List<ItemVO> bourbonItemList2 = [];
     bourbonItemList2.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
@@ -106,15 +104,15 @@ class _TemplateBodyState extends State<_TemplateBody> {
     bourbonItemList2
         .add(ItemVO(name: "Larceny Small Batch", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
     bourbonItemList2.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
+
     category = [
-      CategoryVO(categoryName: "TEQUILA", itemList: taquilaItemList),
-      CategoryVO(categoryName: "BOURBON", itemList: bourbonItemList),
-      CategoryVO(categoryName: "SCOTCH", itemList: scotchItemList),
-      CategoryVO(categoryName: "BOURBON 2", itemList: bourbonItemList2),
+      CategoryVO(categoryName: "", itemList: taquilaItemList),
+      CategoryVO(categoryName: "", itemList: bourbonItemList),
+      CategoryVO(categoryName: "", itemList: scotchItemList),
+      CategoryVO(categoryName: "", itemList: bourbonItemList2),
     ];
 
-    PRODUCT_CELL_HEIGHT =
-        (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - ((category.length) * CELL_DEVIDER_HEIGHT)) / category.length;
+    PRODUCT_CELL_HEIGHT = (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - (4 * CELL_DEVIDER_HEIGHT)) / 4;
     TGLog.d("PRODUCT_CELL_HEIGHT " + PRODUCT_CELL_HEIGHT.toString());
     initHeader();
   }
@@ -211,20 +209,6 @@ class _TemplateBodyState extends State<_TemplateBody> {
       children: [
         Row(
           children: [
-            RotatedBox(
-                quarterTurns: 3,
-                child: Container(
-                    color: Colors.blue,
-                    width: PRODUCT_CELL_HEIGHT,
-                    height: 80,
-                    child: Center(
-                      child: (textLabel(
-                        text: categoryVO.categoryName,
-                        color: whiteColor,
-                        size: fontSize20,
-                        fontWeight: FontWeight.bold,
-                      )),
-                    ))),
             Expanded(
               child: Row(
                   children: categoryVO.itemList

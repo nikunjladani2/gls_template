@@ -3,7 +3,10 @@ class ScreenRoute {
   static const String splash = "/splash_screen";
   static const String login = "/login_screen";
   static const String header = "/header_screen";
-  static const String addProduct = "/add_product_screen";
+  static const String template = "/template_screen";
+  static const String templateType = "/template_type_screen";
+  static const String template54 = "/template_5_4_screen";
+  static const String template44 = "/template_4_4_screen";
 }
 
 //Font size
