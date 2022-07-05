@@ -80,6 +80,7 @@ class _Template54BodyState extends State<_Template54Body> {
         .add(ItemVO(name: "Clazse Azul Reposado ", isProductAdded: false, price: "\$149.99", quantity: "650ml"));
     taquilaItemList.add(ItemVO(name: "Cincoro Anejo", isProductAdded: false, price: "\$159.99", quantity: "750ml"));
     taquilaItemList.add(ItemVO(name: "Tesoro Maya Anejo", isProductAdded: false, price: "\$169.99", quantity: "650ml"));
+    taquilaItemList.add(ItemVO(name: "Tesoro Maya Anejo", isProductAdded: false, price: "\$169.99", quantity: "650ml"));
 
     List<ItemVO> bourbonItemList = [];
     bourbonItemList.add(ItemVO(name: "Jim Beam", isProductAdded: false, price: "\$129.99", quantity: "1.75ml"));
@@ -88,6 +89,7 @@ class _Template54BodyState extends State<_Template54Body> {
     bourbonItemList
         .add(ItemVO(name: "Larceny Small Batch", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
     bourbonItemList.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
+    bourbonItemList.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
     List<ItemVO> scotchItemList = [];
     scotchItemList
         .add(ItemVO(name: "Johnnie Walker Red Label", isProductAdded: false, price: "\$129.99", quantity: "750ml"));
@@ -95,6 +97,7 @@ class _Template54BodyState extends State<_Template54Body> {
         .add(ItemVO(name: "Glenfiddich 12 Year Old", isProductAdded: false, price: "\$99.99", quantity: "1.75ml"));
     scotchItemList.add(ItemVO(name: "Buchanan's Deluxe", isProductAdded: false, price: "\$139.99", quantity: "750ml"));
     scotchItemList
+        .add(ItemVO(name: "Doublewood 12 Year Old", isProductAdded: false, price: "\$149.99", quantity: "1.75ml")); scotchItemList
         .add(ItemVO(name: "Doublewood 12 Year Old", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
 
     List<ItemVO> bourbonItemList2 = [];
@@ -104,16 +107,16 @@ class _Template54BodyState extends State<_Template54Body> {
     bourbonItemList2
         .add(ItemVO(name: "Larceny Small Batch", isProductAdded: false, price: "\$149.99", quantity: "1.75ml"));
     bourbonItemList2.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
+    bourbonItemList2.add(ItemVO(name: "Maker's Mark", isProductAdded: false, price: "\$169.99", quantity: "750ml"));
 
     category = [
       CategoryVO(categoryName: "", itemList: taquilaItemList),
       CategoryVO(categoryName: "", itemList: bourbonItemList),
       CategoryVO(categoryName: "", itemList: scotchItemList),
       CategoryVO(categoryName: "", itemList: scotchItemList),
-      CategoryVO(categoryName: "", itemList: bourbonItemList2),
     ];
 
-    PRODUCT_CELL_HEIGHT = (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - (5 * CELL_DEVIDER_HEIGHT)) / 5;
+    PRODUCT_CELL_HEIGHT = (IMAGE_SIZE - HEADER_HEIGHT - TOP_DEVIDER_HEIGHT - (4 * CELL_DEVIDER_HEIGHT)) / 4;
     TGLog.d("PRODUCT_CELL_HEIGHT " + PRODUCT_CELL_HEIGHT.toString());
     initHeader();
   }

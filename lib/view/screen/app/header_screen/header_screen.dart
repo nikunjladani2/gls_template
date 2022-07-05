@@ -695,7 +695,7 @@ class _HeaderState extends State<_HeaderBody> {
                 initAspectRatio: CropAspectRatioPreset.square,
                 activeControlsWidgetColor: ThemeColors.primary,
                 hideBottomControls: true,
-                lockAspectRatio: false),
+                lockAspectRatio: true),
             iosUiSettings: const IOSUiSettings(
                 minimumAspectRatio: 1.0,
                 aspectRatioLockEnabled: true,
@@ -710,9 +710,7 @@ class _HeaderState extends State<_HeaderBody> {
           imageType == ImageType.logo
               ? _logoUrl = croppedFile != null ? croppedFile.path : ""
               : _bannerUrl = croppedFile != null ? croppedFile.path : "";
-          /*final bytes = File(_selectedFile!.path).readAsBytesSync().lengthInBytes;
-          final kb = bytes / 1024;
-          print("size after crop....$kb");*/
+
           imageType == ImageType.logo
               ? _updateShowLogoError(false)
               : _updateShowBannerError(false);
